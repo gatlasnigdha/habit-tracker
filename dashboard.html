@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Habit Tracker</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <h2>Habit Tracker</h2>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="progress.html">Progress</a></li>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+
+        <h1>Welcome!</h1>
+        <p>Track your daily habits below.</p>
+
+        <input type="text" id="habitInput" placeholder="Enter a new habit">
+        <button onclick="addHabit()">Add Habit</button>
+
+        <h2>Your Habits</h2>
+
+        <ul id="habitList"></ul>
+
+        <br>
+
+        <a href="progress.html">
+            <button>View Progress</button>
+        </a>
+
+    </div>
+
+    <script src="index.js"></script>
+
+</body>
+</html>
