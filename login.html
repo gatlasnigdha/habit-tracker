@@ -9,16 +9,38 @@
 <body>
 <div class="login-container">
     <h1>Habit Tracker</h1>
-    <h2>Login</h2>
 
-    <input type="email" placeholder="Enter your email">
+    <section id="loginPanel">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="loginEmail">Email</label>
+            <input id="loginEmail" name="email" type="email" placeholder="Enter your email" autocomplete="email" required>
 
-    <input type="password" placeholder="Enter your password">
-    <a href="dashboard.html">
-    <button onclick="login()">Login</button>
-    </a>
+            <label for="loginPassword">Password</label>
+            <input id="loginPassword" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <button class="text-button" id="showSignup" type="button">Sign up</button></p>
+    </section>
+
+    <section id="signupPanel" hidden>
+        <h2>Create an account</h2>
+        <form id="signupForm">
+            <label for="signupEmail">Email</label>
+            <input id="signupEmail" name="email" type="email" placeholder="Enter your email" autocomplete="email" required>
+
+            <label for="signupPassword">Password</label>
+            <input id="signupPassword" name="password" type="password" placeholder="Create a password (at least 8 characters)" autocomplete="new-password" minlength="8" required>
+
+            <button type="submit">Create account</button>
+        </form>
+        <p>Already have an account? <button class="text-button" id="showLogin" type="button">Log in</button></p>
+    </section>
+
+    <p id="authMessage" role="alert" aria-live="polite"></p>
 </div>
 
-<script src="script.js"></script>
+<script src="auth.js"></script>
 </body>
 </html>

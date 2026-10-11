@@ -1,5 +1,44 @@
-// Load habits from Local Storage
-let habits = JSON.parse(localStorage.getItem("habits")) || [];
+const currentUser = sessionStorage.getItem("habitTrackerUser");
+const habitsStorageKey = currentUser
+    ? `habits:${encodeURIComponent(currentUser)}`
+    : null;
+const legacyHabitsKey = "habits";
+
+function loadHabits() {
+    if (!habitsStorageKey) {
+        return [];
+    }
+
+    let storedHabits = localStorage.getItem(habitsStorageKey);
+    if (storedHabits === null) {
+        storedHabits = localStorage.getItem(legacyHabitsKey);
+        if (storedHabits !== null) {
+            localStorage.setItem(habitsStorageKey, storedHabits);
+            localStorage.removeItem(legacyHabitsKey);
+        }
+    }
+
+    if (storedHabits === null) {
+        return [];
+    }
+
+    const savedHabits = JSON.parse(storedHabits);
+    if (!Array.isArray(savedHabits)) {
+        throw new Error("Saved habit data is invalid.");
+    }
+
+    return savedHabits;
+}
+
+let habits = loadHabits();
+
+function saveHabits() {
+    if (!habitsStorageKey) {
+        throw new Error("Cannot save habits without a logged-in account.");
+    }
+
+    localStorage.setItem(habitsStorageKey, JSON.stringify(habits));
+}
 
 // Show habits when dashboard opens
 if (document.getElementById("habitList")) {
@@ -20,7 +59,7 @@ function addHabit() {
         completed: false
     });
 
-    localStorage.setItem("habits", JSON.stringify(habits));
+    saveHabits();
 
     input.value = "";
 
@@ -57,7 +96,7 @@ function toggleHabit(index) {
 
     habits[index].completed = !habits[index].completed;
 
-    localStorage.setItem("habits", JSON.stringify(habits));
+    saveHabits();
 
     displayHabits();
 }
